@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="utf-8">
+ <title>Vue-js | Django | Crud App</title>
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta name="description" content="A simple crud app made with the vue js and django">
+ <meta name="keywords" content="vuejs, django, crudapp, restapi">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+
+  <div id="starting">
+    <div class="container">
+      <div class="row">
+        <h1>List of Lines
+        <button class="btn btn-success">ADD LINE</button>
+        </h1>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Heading</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="line in lines">
+              <th scope="row">${line.id}</th>
+              <td>${line.name}</td>
+              <td>
+                <button class="btn btn-info" v-on:click="getLine(line.id)">Edit</button>
+                <button class="btn btn-danger" v-on:click="deleteLine(line.id)">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="loading" v-if="loading===true">Loading&#8230;</div>
+  </div>
+
+
+
+ <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+ <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.5"></script>
+
+
+
+
+</body>
+
+
+<script type=”text/javascript”>
+new Vue({
+   el: ‘#starting’,
+   delimiters: [‘${‘,’}’],
+   data: {
+     lines: [],
+     loading: false,
+     currentLine: {},
+     message: null,
+     newLine: { ‘name’: null, ‘color’: null },
+   },
+  mounted: function() {
+    this.getLines();
+  },
+  methods: {
+    getLines: function() {
+     this.loading = true;
+     this.$http.get('api/lines/?format=json')
+         .then((response) => {
+           this.lines = response.data;
+           this.loading = false;
+         })
+         .catch((err) => {
+          this.loading = false;
+          console.log(err);
+         })
+    },
+    getLine: function(id) {
+     this.loading = true;
+     this.$http.get('api/lines/${id}/')
+         .then((response) => {
+           this.currentLine = response.data;
+           this.loading = false;
+         })
+         .catch((err) => {
+           this.loading = false;
+           console.log(err);
+         })
+    },
+    addLine: function() {
+     this.loading = true;
+     this.$http.post('api/lines/',this.newLine)
+         .then((response) => {
+           this.loading = false;
+           this.getLines();
+         })
+         .catch((err) => {
+           this.loading = false;
+           console.log(err);
+         })
+    },
+    updateLine: function() {
+     this.loading = true;
+     this.$http.put('api/lines/${this.currentLine.line_id}/', this.currentLine)
+         .then((response) => {
+           this.loading = false;
+           this.currentLine = response.data;
+           this.getLines();
+         })
+         .catch((err) => {
+           this.loading = false;
+           console.log(err);
+         })
+    },
+    deleteLine: function(id) {
+     this.loading = true;
+     this.$http.delete('/lines/${id}/')
+         .then((response) => {
+           this.loading = false;
+           this.getLines();
+         })
+         .catch((err) => {
+           this.loading = false;
+           console.log(err);
+         })
+  }
+});
+ </script>
+
+</html>

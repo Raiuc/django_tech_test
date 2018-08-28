@@ -14,6 +14,8 @@ class LocationViewSet(viewsets.ModelViewSet):
     """
     API endpoint to allow view and edit locations.
     """
+
+
     queryset         = LocationModel.objects.all()
     serializer_class = LocationSerializer
     paginator        = None
@@ -27,6 +29,7 @@ class StationViewSet(viewsets.ModelViewSet):
     """
     API endpoint to allow view and edit stations.
     """
+
     queryset         = StationModel.objects.all()
     serializer_class = StationSerializer
     paginator        = None
