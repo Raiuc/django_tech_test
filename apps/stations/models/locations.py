@@ -3,7 +3,7 @@ from django.db import models
 
 from apps.utils import create_id
 
-
+# Class to define locations table
 class LocationModel(models.Model):
     """ Location object is the representation of physical station
 

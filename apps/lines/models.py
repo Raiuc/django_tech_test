@@ -6,6 +6,7 @@ from apps.stations.models import StationModel
 from apps.utils import create_id
 
 
+# Class to to define lines table
 class LineModel(models.Model):
 
     id = models.CharField(default=create_id('line_'), primary_key=True,
@@ -13,7 +14,7 @@ class LineModel(models.Model):
     name = models.CharField(max_length=100)
     color = models.CharField(max_length=8)
 
-
+# Class to to define routes table
 class RouteModel(models.Model):
 
     id = models.CharField(default=create_id('route_'), primary_key=True,

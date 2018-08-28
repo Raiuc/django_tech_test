@@ -5,7 +5,7 @@ from .locations import LocationModel
 
 from apps.utils import create_id
 
-
+# Class to define stations table
 class StationModel(models.Model):
 
     id = models.CharField(default=create_id('sta_'), primary_key=True,
