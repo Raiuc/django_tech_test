@@ -4,12 +4,14 @@ from .models.stations import StationModel
 
 # Model visualization/editting in Django admin
 class LocationModelAdmin(admin.ModelAdmin):
-    list_filter = ['id', 'name', 'latitude', 'longitude']
+    list_display  = ['id', 'name', 'latitude', 'longitude']
+    list_filter   = ['id', 'name']
     list_per_page = 500
 
 
 class StationModelAdmin(admin.ModelAdmin):
-    list_display = ['id', 'location', 'order', 'is_active']
+    list_display  = ['id', 'location', 'order', 'is_active']
+    list_filter   = ['id', 'location', 'order', 'is_active']
     list_per_page = 500
 
 admin.site.register(LocationModel, LocationModelAdmin)
