@@ -1,5 +1,7 @@
 from django.contrib.auth.models import User, Group
 from django.shortcuts import render
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required, permission_required
 
 from rest_framework import viewsets
 
@@ -7,6 +9,7 @@ from .models import LineModel, RouteModel
 from .serializers import UserSerializer, GroupSerializer, LineSerializer, RouteSerializer
 
 # API View for Line model
+@method_decorator(login_required, name='dispatch')
 class LineViewSet(viewsets.ModelViewSet):
     """
     API endpoint to allow view and edit lines.
@@ -19,6 +22,7 @@ class LineViewSet(viewsets.ModelViewSet):
         ordering = ['-id']
 
 # API View for Route model
+@method_decorator(login_required, name='dispatch')
 class RouteViewSet(viewsets.ModelViewSet):
     """
     API endpoint to allow view and edit routes.
@@ -31,6 +35,7 @@ class RouteViewSet(viewsets.ModelViewSet):
         ordering = ['-id']
 
 # Django-auth User API View
+@method_decorator(login_required, name='dispatch')
 class UserViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
@@ -44,6 +49,7 @@ class UserViewSet(viewsets.ModelViewSet):
         ordering = ['-id']
 
 # Django-auth Group API View
+@method_decorator(login_required, name='dispatch')
 class GroupViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.

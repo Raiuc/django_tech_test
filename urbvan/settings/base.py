@@ -41,7 +41,8 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     'rest_framework',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'rest_auth',
 ]
 
 LOCAL_APPS = [
@@ -62,6 +63,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'urbvan.urls'
+
+LOGIN_URL = '/api_auth/login'
 
 TEMPLATES = [
     {
