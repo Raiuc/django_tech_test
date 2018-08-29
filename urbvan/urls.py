@@ -38,7 +38,10 @@ urlpatterns = [
     path('api_auth/', include('rest_framework.urls',  namespace='rest_framework')),
     # path('rest-auth/', include('rest_auth.urls')),
 
-    # vue
-    path('line/', TemplateView.as_view(template_name='line.html')),
+    # vue.js
+    path('lines/', TemplateView.as_view(template_name='lines.html')),
+    path('routes/', TemplateView.as_view(template_name='routes.html')),
+    path('stations/', TemplateView.as_view(template_name='stations.html')),
+    path('locations/', TemplateView.as_view(template_name='locations.html')),
 
 ]

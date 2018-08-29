@@ -23,3 +23,7 @@ class LocationModel(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def geo(self):
+        return "{},{}".format(self.latitude, self.longitude)
